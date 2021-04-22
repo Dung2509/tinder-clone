@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheets/login.css"/>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>ShynRii: Kết Nối Lại Với Nhau</title>
+    <link rel="shortcut icon" type="image/png" href="img/SR.png"/>
+    <style type="text/css">
+        .modal-dialog{
+            max-width: 500px;
+        }
+        .btn{
+            margin-top: 5px;
+            width:150px;
+            color:#fff;
+            border:none;
+            padding:15px 20px;
+            border-radius:25px;
+            background:rgba(255,255,255,.1);
+            background: linear-gradient(262deg, #ff7854, #fd267d);
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .button{
+            margin-top: 5px;
+            width:150px;
+            color:#fff;
+            border:none;
+            padding:15px 20px;
+            border-radius:25px;
+            background:rgba(255,255,255,.1);
+            background:gray;
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .dandev-reviews {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .dandev-reviews .form_upload {
+            width: 320px;
+            position: relative;
+            padding: 5px;
+            bottom: 0px;
+            height: 40px;
+            left: 0;
+            z-index: 5;
+            box-sizing: border-box;
+            background: #f7f7f7;
+            border-top: 1px solid #ddd;
+        }
+
+        .dandev-reviews .form_upload > label {
+            height: 35px;
+            width: 160px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .dandev-reviews .form_upload label span {
+            padding-left: 26px;
+            display: inline-block;
+            /*background: url(img/camera.png) no-repeat;*/
+            background-size: 32px 25px;
+            margin: 5px 5px 0 10px;
+        }
+
+        .list_attach {
+            display: block;
+            margin-top: 30px;
+        }
+
+        ul.dandev_attach_view {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.dandev_attach_view li {
+            float: left;
+            width: 80px;
+            margin: 0 20px 20px 0 !important;
+            padding: 0 !important;
+            border: 0 !important;
+            overflow: inherit;
+            clear: none;
+        }
+
+        ul.dandev_attach_view .img-wrap {
+            position: relative;
+        }
+
+        ul.dandev_attach_view .img-wrap .close {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            background: #000;
+            color: #fff !important;
+            border-radius: 50%;
+            z-index: 2;
+            display: block;
+            width: 20px;
+            height: 20px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 18px;
+            cursor: pointer !important;
+            opacity: 1 !important;
+            text-shadow: none;
+        }
+
+        ul.dandev_attach_view li.li_file_hide {
+            opacity: 0;
+            visibility: visible;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden;
+            margin: 0 !important;
+        }
+
+        ul.dandev_attach_view .img-wrap-box {
+            position: relative;
+            overflow: hidden;
+            padding-top: 100%;
+            height: auto;
+            background-position: 50% 50%;
+            background-size: cover;
+        }
+
+        .img-wrap-box img {
+            right: 0;
+            width: 100% !important;
+            height: 100% !important;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            position: absolute;
+            object-position: 50% 50%;
+            object-fit: cover;
+            transition: all .5s linear;
+            -moz-transition: all .5s linear;
+            -webkit-transition: all .5s linear;
+            -ms-transition: all .5s linear;
+        }
+
+        ul li,
+        ol li {
+            list-style-position: inside;
+        }
+
+        .list_attach span.dandev_insert_attach {
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            /*display: inline-block;*/
+            border: 2px dashed #ccc;
+            line-height: 76px;
+            font-size: 25px;
+            color: #ccc;
+            display: none;
+            cursor: pointer;
+            float: left;
+        }
+
+        ul.dandev_attach_view {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.dandev_attach_view .img-wrap {
+            position: relative;
+        }
+
+        .list_attach.show-btn span.dandev_insert_attach {
+            display: block;
+            margin: 0 0 20px !important;
+        }
+
+        i.dandev-plus {
+            font-style: normal;
+            font-weight: 900;
+            font-size: 35px;
+            line-height: 1;
+        }
+
+        ul.dandev_attach_view li input {
+            display: none;
+        }
+        .tab{
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <div class="avatar">
+                <img src="images/depositphotos_8581584-stock-photo-fire-alphabets-d.jpg" alt=""/>
+            </div>
+            <div class="title">Thông tin của tôi</div>
+        </div>
+        <div class="menu-html">
+            <input id="tab-1" type="radio" name="tab" class="info"  checked><label for="tab-1" class="tab">Thông
+            Tin</label>
+            <input id="tab-2" type="radio" name="tab" class="mess"><label for="tab-2" class="tab">Tin Nhắn</label>
+            <div class="menu-form ">
+
+                <div class="d-flex">
+                    <div class="info-htm row">
+                        <div class="messages">
+
+                            <div class="avatar">
+                                <img style="margin-left: 120px"  src="png/android-add-contact.png" id="add" alt="" class="btn-primary" data-bs-toggle="modal"
+                                     data-bs-target="#addFriend"/>
+                            </div>
+
+                        </div>
+                        <div class="messages">
+                            <div>
+
+                                <div action="/getUsers">
+
+                                    {{#each User}}
+                                            <div>Image : {{this.image}}</div>
+                                        <div>Họ tên : {{this.name}}</div>
+                                        <div>Tuổi : {{this.birthday}}</div>
+                                        <div>Email : {{this.email}}</div>
+                                        <div>SDT : {{this.number_phone}}</div>
+                                        <div>Mô tả : {{this.introduce}}</div>
+                                        <div>Giới tính : {{this.gender}}</div>
+                                        <div>Sở thích : {{this.hobby}}</div>
+                                        <div>ID User : {{this.id}}</div>
+
+
+
+                                        <br>
+
+
+                                        <button data-bs-toggle="modal" data-bs-target="#edit">Update</button>
+
+
+                                        <button>                               <a href="/deleteUsers/{{this._id}}">Delete</a></button>
+                                        <div> -------------------------------------------------</div>
+                                    {{/each}}
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="mess-htm">
+
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img8.jpg" alt="" />
+                            </div>
+                            <div class="message">
+                                <div class="user">Dạ Thảo</div>
+                                <div class="text">Cậu đang làm gì đó?</div>
+                            </div>
+                        </div>
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img10.jpg" alt=""/>
+                            </div>
+                            <div class="message">
+                                <div class="user">Hương Huỳnh</div>
+                                <div class="text" id="text-1">Làm quen không em trai?</div>
+                            </div>
+                        </div>
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img9.jpg" alt=""/>
+                            </div>
+                            <div class="message">
+                                <div class="user">Thiên Kiều Hạnh</div>
+                                <div class="text">Alo !!!</div>
+                            </div>
+                        </div>
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img11.jpg" alt=""/>
+                            </div>
+                            <div class="message">
+                                <div class="user">Nguyễn Thị Cẩm Xuyến</div>
+                                <div class="text" id="text-2">Đi chơi vui không anh?</div>
+                            </div>
+                        </div>
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img12.jpg" alt=""/>
+                            </div>
+                            <div class="message">
+                                <div class="user">Vũ Khánh Huyền</div>
+                                <div class="text" id="text-3">Ngủ chưa?</div>
+                            </div>
+                        </div>
+                        <div class="messages">
+                            <div class="avatar">
+                                <img src="images/img13.jpg" alt=""/>
+                            </div>
+                            <div class="message">
+                                <div class="user">Nguyễn Ngọc Mai</div>
+                                <div class="text" id="text-4">Hello Anh zai</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn-info">
+                    <i class="fas fa-align-left"></i>
+                </button>
+            </div>
+        </nav>
+        <div class="card align-content-center">
+            <div class="user">
+                <img
+                        class="user"
+                        src="images/img1.jpg"
+                        alt=""
+                />
+                <div class="profile">
+                    <div class="name">Huỳnh Thị Kiều Oanh <span>22</span></div>
+                    <div class="local">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>5km</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <div class="redo" >
+                <i class="fas fa-redo"></i>
+            </div>
+            <div class="no">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="star">
+                <i class="fas fa-star "></i>
+            </div>
+            <div class="heart">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="bolt">
+                <i class="fas fa-bolt"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="no" data-toggle="modal" data-target="#exampleModal">  </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa người dùng!!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/delete" method="post">
+                <label style="margin-left: 50px;margin-bottom: 10px; font-size: 30px" class="label">ID người dùng</label>
+                <input style="width: 400px; margin-left: 50px" name="id" id="fullname" type="text" class="form-control is-invalid"
+                       placeholder=" ID người dùng" required>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Đồng ý</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="addFriend" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class=" modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <img src="png/fireball2.png" width="100px" class="logo-1">
+                <h5 class="modal-title" id="staticBackdropLabel-2" style="margin-left: 30px">THÊM BẠN BÈ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="sign-up-htm">
+
+                    <form class="was-validated" action="/users" method="post" enctype="multipart/form-data">
+                        <div class="group">
+                            <label class="label">Họ Và Tên</label>
+                            <input name="name" id="fullname" type="text" class="form-control is-invalid"
+                                   placeholder=" Nhập tên của bạn" required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Tuổi</label>
+                            <input name="birthday" id="birthday"  class="form-control is-invalid"
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Email</label>
+                            <input name="email"  type="email" class="form-control is-invalid"
+                                   placeholder=" tinder@gmail.com" required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Số Điện Thoại</label>
+                            <input name="number_phone" id="number" type="tel" class="form-control is-invalid"
+                                   placeholder=" 0123456789 "
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label for="validationTextarea" class="label">Giới Thiệu Ngắn</label>
+                            <textarea name="introduce" class="form-control is-invalid" id="validationTextarea"
+                                      placeholder=" Mô tả về bản thân bạn "
+                                      required></textarea>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Giới Tính</label>
+                            <div class="form-check">
+
+                                <input  type="radio" class="form-check-input" id="validationFormCheck2"
+                                        name="gender" value="Nam" required>
+                                <label class="form-check-label" for="validationFormCheck2">Nam</label>
+                            </div>
+                            <div class="form-check group">
+                                <input type="radio" class="form-check-input" id="validationFormCheck3"
+                                       name="gender" value="Nữ" required>
+                                <label class="form-check-label" for="validationFormCheck3">Nữ</label>
+
+                            </div>
+                        </div>
+                        <label for="validationTextarea" class="label">Sở Thích</label>
+                        <div class="group row" style="margin-left: 25px">
+
+                            <input name="hobby" type="checkbox" class="btn-check" id="btn-check-1-outlined" value="Chơi Game">
+                            <label style="width: 150px; margin: 15px" class="btn btn-outline-secondary"
+                                   for="btn-check-1-outlined">Chơi Game</label><br>
+                            <input name="hobby" type="checkbox" class="btn-check" id="btn-check-2-outlined" value="Thể Thao">
+                            <label style="width: 150px; margin: 15px" class="btn btn-outline-secondary"
+                                   for="btn-check-2-outlined">Thể Thao</label><br>
+                            <input name="hobby" type="checkbox" class="btn-check" id="btn-check-3-outlined" value="Du Lịch">
+                            <label style="width: 150px; margin: 15px" class="btn btn-outline-secondary"
+                                   for="btn-check-3-outlined">Du Lịch</label><br>
+                            <input name="hobby" type="checkbox" class="btn-check" id="btn-check-4-outlined" value="Ăn Uống">
+                            <label style="width: 150px; margin: 15px" class="btn btn-outline-secondary"
+                                   for="btn-check-4-outlined">Ăn Uống</label><br>
+                            <input name="hobby" type="checkbox" class="btn-check" id="btn-check-5-outlined" value="Đọc Sách">
+                            <label style="width: 150px; margin: 15px" class="btn btn-outline-secondary"
+                                   for="btn-check-5-outlined">Đọc Sách</label><br>
+                        </div>
+                        <div class="wrap">
+                            <label for="image">Upload Image</label><br>
+                            <input name="image" id="image" type="file" >
+                        </div>
+                        <!--                        <div class="wrap">-->
+                        <!--                            <div class="dandev-reviews">-->
+                        <!--                                <div class="form_upload">-->
+
+                        <!--                                    <label class="dandev_insert_attach"><span>Đính kèm ảnh</span></label>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="list_attach">-->
+                        <!--                                    <ul class="dandev_attach_view">-->
+
+                        <!--                                    </ul>-->
+                        <!--                                    <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <!--                        <script type="text/javascript">-->
+                        <!--                            $('.dandev_insert_attach').click(function () {-->
+                        <!--                                if ($('.list_attach').hasClass('show-btn') === false) {-->
+                        <!--                                    $('.list_attach').addClass('show-btn');-->
+                        <!--                                }-->
+                        <!--                                var _lastimg = jQuery('.dandev_attach_view li').last().find('input[type="file"]').val();-->
+
+                        <!--                                if (_lastimg != '') {-->
+                        <!--                                    var d = new Date();-->
+                        <!--                                    var _time = d.getTime();-->
+                        <!--                                    var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';-->
+                        <!--                                    _html += '<div class="img-wrap">';-->
+                        <!--                                    _html += '<span class="close" onclick="DelImg(this)">×</span>';-->
+                        <!--                                    _html += ' <div class="img-wrap-box"></div>';-->
+                        <!--                                    _html += '</div>';-->
+                        <!--                                    _html += '<div class="' + _time + '">';-->
+                        <!--                                    _html += '<input type="file" class="hidden"  onchange="uploadImg(this)" id="files_' + _time + '"   />';-->
+                        <!--                                    _html += '</div>';-->
+                        <!--                                    _html += '</li>';-->
+                        <!--                                    jQuery('.dandev_attach_view').append(_html);-->
+                        <!--                                    jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();-->
+                        <!--                                } else {-->
+                        <!--                                    if (_lastimg == '') {-->
+                        <!--                                        jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();-->
+                        <!--                                    } else {-->
+                        <!--                                        if ($('.list_attach').hasClass('show-btn') === true) {-->
+                        <!--                                            $('.list_attach').removeClass('show-btn');-->
+                        <!--                                        }-->
+                        <!--                                    }-->
+                        <!--                                }-->
+                        <!--                            });-->
+
+                        <!--                            function uploadImg(el) {-->
+                        <!--                                var file_data = $(el).prop('files')[0];-->
+                        <!--                                var type = file_data.type;-->
+                        <!--                                var fileToLoad = file_data;-->
+                        <!--                                var fileReader = new FileReader();-->
+                        <!--                                fileReader.onload = function (fileLoadedEvent) {-->
+                        <!--                                    var srcData = fileLoadedEvent.target.result;-->
+
+                        <!--                                    var newImage = document.createElement('img');-->
+                        <!--                                    newImage.src = srcData;-->
+                        <!--                                    var _li = $(el).closest('li');-->
+                        <!--                                    if (_li.hasClass('li_file_hide')) {-->
+                        <!--                                        _li.removeClass('li_file_hide');-->
+                        <!--                                    }-->
+                        <!--                                    _li.find('.img-wrap-box').append(newImage.outerHTML);-->
+                        <!--                                }-->
+                        <!--                                fileReader.readAsDataURL(fileToLoad);-->
+                        <!--                            }-->
+
+                        <!--                            function DelImg(el) {-->
+                        <!--                                jQuery(el).closest('li').remove();-->
+                        <!--                            }-->
+                        <!--                        </script>-->
+                        <div class="modal-footer row">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Thoát</button>
+                            <button type="submit" class="btn">Thêm Bạn Bè</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade " id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class=" modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <img src="png/fireball2.png" width="100px" class="logo-1">
+                <h5 class="modal-title" id="staticBackdropLabel-3" style="margin-left: 30px">CHỈNH SỬA THÔNG TIN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="sign-up-htm">
+                    <form class="was-validated" action="/update" method="post" >
+                        <div class="group">
+                            <label class="label">ID</label>
+                            <input id="id" type="text" class="form-control is-invalid" name="id"
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Họ Và Tên</label>
+                            <input id="editfullname" type="text" class="form-control is-invalid" name="name"
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Ngày Sinh</label>
+                            <input id="editbirthday" type="date" class="form-control is-invalid" name="date"
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Email</label>
+                            <input id="editemail" type="email" class="form-control is-invalid" name="mail"
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Số Điện Thoại</label>
+                            <input id="editnumber" type="tel" class="form-control is-invalid" name="phone"
+
+                                   required>
+
+                        </div>
+                        <div class="group">
+                            <label for="validationTextarea" class="label">Giới Thiệu Ngắn</label>
+                            <textarea class="form-control is-invalid" id="editalidationTextarea" name="description"
+                                      required> </textarea>
+
+                        </div>
+                        <div class="group">
+                            <label class="label">Giới Tính</label>
+                            <div class="form-check">
+
+                                <input type="radio" class="form-check-input" id="editvalidationFormCheck2"
+                                       name="gender" value="Nam" required checked>
+                                <label class="form-check-label" for="validationFormCheck2" >Nam</label>
+                            </div>
+                            <div class="form-check group">
+                                <input type="radio" class="form-check-input" id="editvalidationFormCheck3"
+                                       name="gender" value="Nữ" required>
+                                <label class="form-check-label" for="validationFormCheck3">Nữ</label>
+
+                            </div>
+                            <!--                            <div>-->
+                            <!--                                <input name="avatar" type="file">-->
+                            <!--                            </div>-->
+                        </div>
+                        <div class="modal-footer row">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Thoát</button>
+                            <button type="submit" class="btn">Chỉnh Sửa</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+    });
+    var firstTabEl = document.querySelector('#myTab a:last-child')
+    var firstTab = new bootstrap.Tab(firstTabEl)
+
+    firstTab.show()
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
