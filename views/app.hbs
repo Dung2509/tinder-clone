@@ -244,7 +244,7 @@
                                 <div action="/getUsers">
 
                                     {{#each User}}
-                                            <div>Image : {{this.image}}</div>
+<!--                                            <div>Image : {{this.image}}</div>-->
                                         <div>Họ tên : {{this.name}}</div>
                                         <div>Tuổi : {{this.birthday}}</div>
                                         <div>Email : {{this.email}}</div>
@@ -260,9 +260,12 @@
 
 
                                         <button data-bs-toggle="modal" data-bs-target="#edit">Update</button>
+<form action="/deleteUsers/{{this._id}}" method="post">
+    <button type="submit">                               Delete</button>
 
+</form>
 
-                                        <button>                               <a href="/deleteUsers/{{this._id}}">Delete</a></button>
+<!--                                        <button>                               <a href="/deleteUsers/{{this._id}}">Delete</a></button>-->
                                         <div> -------------------------------------------------</div>
                                     {{/each}}
                                 </div>
